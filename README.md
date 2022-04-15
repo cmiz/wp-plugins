@@ -1,4 +1,4 @@
-# My WordPress Plugins
+# WordPress Plugins
 
 ## Confirm Mode For Contact Form 7
 
