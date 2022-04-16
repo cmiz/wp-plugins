@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+    php-apache:
+        build: ./php-apache
+        volumes:
+            - html:/var/www/html
+            - ../../confirm-mode-for-contact-form-7/trunk:/var/www/html/wp-content/plugins/confirm-mode-form-contact-form-7
+        ports:
+            - 80:80
+            - 443:443
+  
+    mysql:
+        build: ./mysql
+        volumes:
+            - mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: docker
+            MYSQL_USER: docker
+            MYSQL_PASSWORD: docker
+            TZ: Asia/Tokyo
+        ports:
+            - 3306:3306
+
+    maildev:
+        image: maildev/maildev
+        command: -w 1080 -s 1025
+        ports:
+            - 1025:1025
+            - 1080:1080
+
+volumes:
+    html:
+    mysql:
