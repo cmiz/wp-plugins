@@ -3,10 +3,9 @@
  * Plugin Name:       Confirm Mode for Contact Form 7
  * Text Domain:       confirm-mode-for-contact-form-7
  * Plugin URI:
- * Description:       This is an add-on to introduce a confirmation mode into Contact Form 7.
+ * Description:       This is an add-on to introduce confirmation mode into Contact Form 7.
  * Version:           1.0.0
  * Requires at least: 5.9
- * Requires PHP:      7.0
  * Author:            cmiz
  * Author URI:
  * License:           GPL v2 or later

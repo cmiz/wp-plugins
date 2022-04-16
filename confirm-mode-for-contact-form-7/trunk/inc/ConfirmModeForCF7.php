@@ -60,22 +60,23 @@ class ConfirmModeForCF7 {
 			$this->user_options_default[$name] = $value['default'];
 		}
 
-		add_action( 'init', array( $this, 'on_init' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'on_wp_enqueue_scripts' ) );
-		add_filter( 'wpcf7_form_hidden_fields', array( $this, 'on_wpcf7_form_hidden_fields' ) );
-		add_action( 'wpcf7_before_send_mail', array( $this, 'on_wpcf7_before_send_mail' ), 99, 3 );
+		add_action( 'init', array( $this, 'action_init' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'action_wp_enqueue_scripts' ) );
+		add_filter( 'wpcf7_form_hidden_fields', array( $this, 'filter_wpcf7_form_hidden_fields' ) );
+		add_action( 'wpcf7_before_send_mail', array( $this, 'action_wpcf7_before_send_mail' ), 99, 3 );
+		add_action( 'wpcf7_mail_sent', array( $this, 'action_wpcf7_mail_sent' ), 99, 3 );
 
 		if ( is_admin() ) {
-			add_filter( 'wpcf7_editor_panels', array( $this, 'on_wpcf7_editor_panels' ) );
-			add_action( 'wpcf7_save_contact_form', array( $this, 'on_wpcf7_save_contact_form' ), 10, 3 );
-			add_action( 'delete_post', array( $this, 'on_delete_post' ) );
+			add_filter( 'wpcf7_editor_panels', array( $this, 'filter_wpcf7_editor_panels' ) );
+			add_action( 'wpcf7_save_contact_form', array( $this, 'action_wpcf7_save_contact_form' ), 10, 3 );
+			add_action( 'delete_post', array( $this, 'action_delete_post' ) );
 		}
 	}
 
 	/**
 	 * wp action hook init
 	 */
-	public function on_init() {
+	public function action_init() {
 
 		session_start();
 	}
@@ -83,7 +84,7 @@ class ConfirmModeForCF7 {
 	/**
 	 * wp action hook wp_enqueue_scripts
 	 */
-	public function on_wp_enqueue_scripts() {
+	public function action_wp_enqueue_scripts() {
 
 		$scripts = array(
 			'/js/script.min.js',
@@ -106,7 +107,7 @@ class ConfirmModeForCF7 {
 	/**
 	 * wp filter hook wpcf7_form_hidden_fields
 	 */
-	public function on_wpcf7_form_hidden_fields( $hidden ) {
+	public function filter_wpcf7_form_hidden_fields( $hidden ) {
 
 		// Embed <input type="hidden"> to pass form settings to the JS side
 		$contact_form = WPCF7_ContactForm::get_current();
@@ -121,7 +122,7 @@ class ConfirmModeForCF7 {
 	/**
 	 * wp action hook wpcf7_before_send_mail
 	 */
-	public function on_wpcf7_before_send_mail( $contact_form, &$abort, $submission ) {
+	public function action_wpcf7_before_send_mail( $contact_form, &$abort, $submission ) {
 
 		// Stop sending emails until confirm (if mode is enabled)
 		$user_options = $this->load_user_options( $contact_form->id() );
@@ -143,7 +144,6 @@ class ConfirmModeForCF7 {
 			}
 			// Send
 			if ( $is_request_send && ! empty( $_SESSION[$key_confirm_ok] ) ) {
-				unset( $_SESSION[$key_confirm_ok] );
 				return;
 			}
 		}
@@ -157,9 +157,18 @@ class ConfirmModeForCF7 {
 	}
 
 	/**
+	 * wp action hook wpcf7_mail_sent
+	 */
+	public function action_wpcf7_mail_sent( $contact_form ) {
+
+		$key_confirm_ok = '_cm4cf7_confirm_ok_' . $contact_form->id();
+		unset( $_SESSION[$key_confirm_ok] );
+	}
+
+	/**
 	 * wp filter hook wpcf7_editor_panels
 	 */
-	public function on_wpcf7_editor_panels( $panels ) {
+	public function filter_wpcf7_editor_panels( $panels ) {
 
 		// Add [Confirm Mode] to Admin Form Setting Panel
 		$panels['cm4cf7-panel'] = array(
@@ -182,7 +191,7 @@ class ConfirmModeForCF7 {
 	/**
 	 * wp action hook wpcf7_save_contact_form
 	 */
-	public function on_wpcf7_save_contact_form( $contact_form, $args, $context ) {
+	public function action_wpcf7_save_contact_form( $contact_form, $args, $context ) {
 
 		if ( empty( $args['cm4cf7_user_options'] ) ) return;
 
@@ -216,7 +225,7 @@ class ConfirmModeForCF7 {
 	/**
 	 * wp action hook delete_post
 	 */
-	public function on_delete_post( $post_id ) {
+	public function action_delete_post( $post_id ) {
 
 		$post = get_post( $post_id );
 

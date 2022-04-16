@@ -191,6 +191,8 @@ addEventListener( 'DOMContentLoaded', () => {
             ConfirmView_Destroy();
             SubmitLabel_Confirm();
             ReturnButton_Destroy();
+            // hide response message from the server
+            wpcf7.querySelectorAll( '.wpcf7-response-output' ).forEach( elm => elm.classList.remove( 'cm4cf7-show' ) );
             // auto scroll
             if ( UserOptions.AUTO_SCROLL ) {
                 wpcf7.scrollIntoView( { behavior:'smooth', block:'start', inline:'nearest' } );
