@@ -29,7 +29,7 @@ Contact Form 7 defaults to the following two steps.
 
 = Which Contact Form 7 versions are supported? =
 
-Confirmed with Contact Form 7 version 5.5.6 or later.
+Confirmed with Contact Form 7 version 5.5.6.
 
 = What browsers are supported? =
 
