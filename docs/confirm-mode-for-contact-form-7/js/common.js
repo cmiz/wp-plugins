@@ -17,6 +17,7 @@
                 nav.footer = true;
             }
         }
+        if (nav.footer && nav.sidebar) ad();
     }
     nav.html = '';
     nav.footer = false;
@@ -45,5 +46,16 @@
     fetch('parts/nav.html')
         .then(resp => resp.text())
         .then(html => nav(html));
+
+    function ad() {
+        if (ad.ok) return;
+        const script = document.createElement('script');
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1549609470845206';
+        script.crossOrigin = 'anonymous';
+        script.async = true;
+        document.body.appendChild(script);
+        ad.ok = true;
+    }
+    ad.ok = false;
 
 })();
