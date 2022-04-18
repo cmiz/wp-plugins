@@ -3,7 +3,7 @@ Contributors: cmiz
 Tags: contact form
 Requires at least: 5.9
 Tested up to: 5.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link:
@@ -43,6 +43,9 @@ Confirmed on Google Chrome 100 on Windows 10.
 
 
 == Changelog ==
+
+= 1.0.1 =
+Plugin URI release.
 
 = 1.0.0 =
 First release.

@@ -4,7 +4,7 @@
  * Text Domain:       confirm-mode-for-contact-form-7
  * Plugin URI:        https://cmiz.github.io/confirm-mode-for-contact-form-7/
  * Description:       This is an add-on to introduce confirmation mode into Contact Form 7.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 5.9
  * Author:            cmiz
  * Author URI:        https://profiles.wordpress.org/cmiz/
