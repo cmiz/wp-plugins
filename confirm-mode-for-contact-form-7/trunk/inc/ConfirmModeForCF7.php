@@ -87,7 +87,7 @@ class ConfirmModeForCF7 {
 	public function action_wp_enqueue_scripts() {
 
 		$scripts = array(
-			'/js/script.min.js',
+			'/js/script.js',
 		);
 		$styles = array(
 			'/css/style.css',

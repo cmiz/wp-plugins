@@ -1,5 +1,0 @@
-{
-    "scripts": {
-        "build": "npx uglify-js -c -m -- js/script.js > js/script.min.js"
-    }
-}
