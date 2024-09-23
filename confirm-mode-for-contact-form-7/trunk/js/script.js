@@ -132,6 +132,11 @@ addEventListener( 'DOMContentLoaded', () => {
                 elm.parentNode.insertBefore( span, elm );
                 fire( span, elm );
             }
+            function quiz( elm, className ) {
+                // TODO: Difficult to support "quiz"
+                //   - The answer field on the confirmation screen will be updated to blank.
+                //   - If there are multiple questions, the question change on the confirmation screen.
+            }
             // event ignition
             function fire( span, elm ) {
                 const option = { bubbles: true };
@@ -149,6 +154,9 @@ addEventListener( 'DOMContentLoaded', () => {
             wpcf7.querySelectorAll( '.wpcf7-textarea' ).forEach( elm => textarea( elm, 'cm4cf7-textarea' ) );
             wpcf7.querySelectorAll( '.wpcf7-checkbox' ).forEach( elm => checkbox( elm, 'cm4cf7-checkbox' ) );
             wpcf7.querySelectorAll( '.wpcf7-radio' ).forEach( elm => radio( elm, 'cm4cf7-radio' ) );
+            wpcf7.querySelectorAll( '.wpcf7-range' ).forEach( elm => text( elm, 'cm4cf7-range' ) );
+            wpcf7.querySelectorAll( '.wpcf7-quiz' ).forEach( elm => quiz( elm, 'cm4cf7-quiz' ) );
+            wpcf7.querySelectorAll( '.wpcf7-file' ).forEach( elm => text( elm, 'cm4cf7-file' ) );
             // Insert a message at the top of the form to prompt for confirmation
             const message = document.createElement( 'div' );
             message.classList.add( 'cm4cf7-message-for-confirmation' );
